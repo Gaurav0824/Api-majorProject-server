@@ -15,6 +15,12 @@ import pprint
 import sklearn
 from sklearn.naive_bayes import *
 from sklearn.feature_extraction.text import *
+from flask_cors import *
+import io
+import base64
+
+from wordcloud import STOPWORDS, WordCloud
+
 
 vect, clf = pickle.load(open('model.pkl', 'rb'))
 
@@ -27,6 +33,28 @@ nltk.download('punkt')
 nltk.download('wordnet')
 
 app = Flask(__name__)
+CORS(app)
+
+@app.route('/wordcloud', methods=['POST'])
+def get_word_cloud():
+    if request.method == "POST":
+        text = request.json.get("word")
+        max_words = request.json.get("max_words")
+        width=request.json.get("width")
+        height=request.json.get("height")
+        print(text)
+        print(max_words)
+        pil_img = WordCloud(
+            max_words=max_words,
+            width=width,
+            stopwords=STOPWORDS,
+            height=height, 
+            background_color="white",colormap='inferno').generate(text=text).to_image()
+        img = io.BytesIO()
+        pil_img.save(img, "PNG")
+        img.seek(0)
+        img_base64 = base64.b64encode(img.getvalue()).decode()
+        return img_base64
 
 
 @app.route('/')
