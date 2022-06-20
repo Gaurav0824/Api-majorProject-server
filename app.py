@@ -98,9 +98,10 @@ def processed_data(text, stop_remove, more_remove, stem, lemme):
     from nltk.stem import WordNetLemmatizer
     lemmatizer = WordNetLemmatizer()
     print(text)
+    text=word_tokenize(text)
     text = [lemmatizer.lemmatize(w) for w in text]
     print(text)
-    text = ("".join(text))  # joining of the text .
+    text = (" ".join(text))  # joining of the text .
     print(text)
     return text
 
