@@ -108,10 +108,10 @@ def sentence_score(text):
     sid = SentimentIntensityAnalyzer()  # making the object of the sentimentanalyser
     sid_dict = sid.polarity_scores(text)  # getting the scores ductionary
     scores = sid_dict['compound']  # taking the compound scores
-    print("Scores",scores)
-    if (scores >= 0.5):  # based on the compound score finding the sentiments of the review
+
+    if (scores >= 0.05):  # based on the compound score finding the sentiments of the review
         return "positive"
-    elif (scores <= -0.5):
+    elif (scores <= -0.05):
         return "negative"
     else:
         return "netural"
