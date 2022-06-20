@@ -98,8 +98,8 @@ def processed_data(text, stop_remove, more_remove, stem, lemme):
     from nltk.stem import WordNetLemmatizer
     lemmatizer = WordNetLemmatizer()
     text = [lemmatizer.lemmatize(w) for w in text]
-    print(text)
     text = (" ".join(text))  # joining of the text .
+    print(text)
     return text
 
 
@@ -108,10 +108,10 @@ def sentence_score(text):
     sid = SentimentIntensityAnalyzer()  # making the object of the sentimentanalyser
     sid_dict = sid.polarity_scores(text)  # getting the scores ductionary
     scores = sid_dict['compound']  # taking the compound scores
-
-    if (scores >= 0.05):  # based on the compound score finding the sentiments of the review
+    print("Scores",scores)
+    if (scores >= 0.5):  # based on the compound score finding the sentiments of the review
         return "positive"
-    elif (scores <= -0.05):
+    elif (scores <= -0.5):
         return "negative"
     else:
         return "netural"
