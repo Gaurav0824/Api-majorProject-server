@@ -93,10 +93,10 @@ def spam():
         return json.dumps(result)
 
 
+lemmatizer = WordNetLemmatizer()
 def processed_data(text, stop_remove, more_remove, stem, lemme):
     from nltk.tokenize import word_tokenize
     from nltk.stem import WordNetLemmatizer
-    lemmatizer = WordNetLemmatizer()
     print(text)
     text=word_tokenize(text)
     text = [lemmatizer.lemmatize(w) for w in text]
@@ -107,8 +107,8 @@ def processed_data(text, stop_remove, more_remove, stem, lemme):
 
 
 
+sid = SentimentIntensityAnalyzer()  # making the object of the sentimentanalyser
 def sentence_score(text):
-    sid = SentimentIntensityAnalyzer()  # making the object of the sentimentanalyser
     sid_dict = sid.polarity_scores(text)  # getting the scores ductionary
     scores = sid_dict['compound']  # taking the compound scores
     print(sid_dict)
