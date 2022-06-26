@@ -92,11 +92,11 @@ def spam():
         result = data["pred"].map({0: 'ham', 1: 'spam'}).to_list()
         return json.dumps(result)
 
-
+from nltk.tokenize import word_tokenize
+from nltk.stem import WordNetLemmatizer
 lemmatizer = WordNetLemmatizer()
 def processed_data(text, stop_remove, more_remove, stem, lemme):
-    from nltk.tokenize import word_tokenize
-    from nltk.stem import WordNetLemmatizer
+
     print(text)
     text=word_tokenize(text)
     text = [lemmatizer.lemmatize(w) for w in text]
